@@ -4,7 +4,7 @@ require 'vendor/cosenary/instagram/src/Instagram.php';
 
 use MetzWeb\Instagram\Instagram;
 
-$instagram = new Instagram('');
+$instagram = new Instagram('af797da93a514a9381d6862490944f45');
 
 $tag = 'holiday';
 // Set number of photos to show
@@ -36,6 +36,19 @@ $result = $instagram->getTagMedia($tag, $limit);
     <div class="main">
         <ul class="grid">
             <?php
+			function my_sort($a, $b)
+		    {
+				if ($a->likes->count < $b->likes->count) {
+					return 1;
+				} else if ($a->likes->count > $b->likes->count) {
+					return -1;
+				} else {
+					return 0;
+				}
+		    }
+		 
+	       usort($result->data, 'my_sort');
+		   $tagcount = array();
             foreach ($result->data as $media) {
                 $content = '<li>';
                 // output media
@@ -53,19 +66,42 @@ $result = $instagram->getTagMedia($tag, $limit);
                     $content .= "<img class=\"media\" src=\"{$image}\"/>";
                 }
                 // create meta section
+				
                 $avatar = $media->user->profile_picture;
                 $username = $media->user->username;
                 $comment = (!empty($media->caption->text)) ? $media->caption->text : '';
+				$like = $media->likes->count;
+				$tags = $media ->tags;
+				$hashtag = "";
+
+				foreach($tags as $temptag) {
+					if(!array_key_exists($temptag, $tagcount))
+						$tagcount[$temptag] = 1;
+					else {
+						$tagcount[$temptag]++;
+						echo "<script type='text/javascript'>alert('asd');</script>";
+					}
+					$hashtag .= " " . $temptag;
+				}
+            
                 $content .= "<div class=\"content\">
                            <div class=\"avatar\" style=\"background-image: url({$avatar})\"></div>
+						   <div class=\"\">{$like}</div>
+						   <div class=\"\" style=\"font-size:10px\">{$hashtag}</div>
                            <p>{$username}</p>
                            <div class=\"comment\">{$comment}</div>
                          </div>";
                 // output media
+
                 echo $content . '</li>';
             }
             ?>
         </ul>
+		<div> <?php foreach($tagcount as $x => $x_value) {
+						echo $x . " " . $x_value . "<br>";
+		}
+		?>
+		</div>
         <!-- GitHub project -->
         <footer>
             <p>created by <a href="https://github.com/cosenary/Instagram-PHP-API">cosenary's Instagram class</a>,

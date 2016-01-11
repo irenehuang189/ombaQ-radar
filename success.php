@@ -13,9 +13,9 @@ use MetzWeb\Instagram\Instagram;
 
 // initialize class
 $instagram = new Instagram(array(
-    'apiKey' => '',
-    'apiSecret' => '',
-    'apiCallback' => '' // must point to success.php
+   'apiKey'      => 'af797da93a514a9381d6862490944f45',
+   'apiSecret' => 'f8020cc5a84f41afb9b734cc3d733401',
+   'apiCallback' => 'http://localhost/ombaq/example/success.php'  // must point to success.php
 ));
 
 // receive OAuth code parameter
