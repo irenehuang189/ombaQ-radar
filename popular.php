@@ -18,13 +18,14 @@ $result = $instagram->getTagMedia($tag, $limit);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>n
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram - popular photos</title>
     <link href="https://vjs.zencdn.net/4.2/video-js.css" rel="stylesheet">
     <link href="assets/style.css" rel="stylesheet">
-    <script src="https://vjs.zencdn.net/4.2/video.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css" rel="stylesheet">
+   
 </head>
 <body>
 <div class="container">
@@ -72,22 +73,20 @@ $result = $instagram->getTagMedia($tag, $limit);
                 $comment = (!empty($media->caption->text)) ? $media->caption->text : '';
 				$like = $media->likes->count;
 				$tags = $media ->tags;
-				$hashtag = "";
 
+				
 				foreach($tags as $temptag) {
-					if(!array_key_exists($temptag, $tagcount))
+					if(!array_key_exists($temptag, $tagcount) && $temptag != $tag) 
 						$tagcount[$temptag] = 1;
 					else {
-						$tagcount[$temptag]++;
-						echo "<script type='text/javascript'>alert('asd');</script>";
+						if($temptag != $tag)
+							$tagcount[$temptag]++;
 					}
-					$hashtag .= " " . $temptag;
 				}
             
                 $content .= "<div class=\"content\">
                            <div class=\"avatar\" style=\"background-image: url({$avatar})\"></div>
 						   <div class=\"\">{$like}</div>
-						   <div class=\"\" style=\"font-size:10px\">{$hashtag}</div>
                            <p>{$username}</p>
                            <div class=\"comment\">{$comment}</div>
                          </div>";
@@ -97,22 +96,32 @@ $result = $instagram->getTagMedia($tag, $limit);
             }
             ?>
         </ul>
-		<div> <?php foreach($tagcount as $x => $x_value) {
-						echo $x . " " . $x_value . "<br>";
+\
+		<?php 
+		$word_array = array();
+		
+		foreach($tagcount as $x => $x_value) {
+			$obj = new stdClass();
+			$obj->text = $x;
+			$obj->weight = $x_value;
+			$word_array[] = $obj; 
 		}
 		?>
-		</div>
+
+		
+		<div id="wordcloud" style="width: 550px; height: 350px;margin: 0 auto"></div>
         <!-- GitHub project -->
         <footer>
             <p>created by <a href="https://github.com/cosenary/Instagram-PHP-API">cosenary's Instagram class</a>,
                 available on GitHub</p>
-            <iframe width="95px" scrolling="0" height="20px" frameborder="0" allowtransparency="true"
-                    src="http://ghbtns.com/github-btn.html?user=cosenary&repo=Instagram-PHP-API&type=fork&count=true"></iframe>
         </footer>
     </div>
 </div>
 <!-- javascript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://vjs.zencdn.net/4.2/video.js"></script>
+<script src="https://vjs.zencdn.net/4.2/video.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
 <script>
     $(document).ready(function () {
         // rollover effect
@@ -129,5 +138,17 @@ $result = $instagram->getTagMedia($tag, $limit);
         );
     });
 </script>
+ <script type="text/javascript">
+      /*!
+       * Create an array of word objects, each representing a word in the cloud
+       */
+      var word_array = eval(<?php echo json_encode($word_array);?>);
+      $(function() {
+        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+        $("#wordcloud").jQCloud(word_array);
+      });
+	   </script>
+
+
 </body>
 </html>
