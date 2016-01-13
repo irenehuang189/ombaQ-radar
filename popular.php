@@ -6,14 +6,105 @@ use MetzWeb\Instagram\Instagram;
 
 $instagram = new Instagram('af797da93a514a9381d6862490944f45');
 
-$tag = 'holiday';
+$tag = 'photographyislifee';
 // Set number of photos to show
-$limit = 15;
-
-// Set height and width for photos
-$size = '100';
+$limit = 10;
 $result = $instagram->getTagMedia($tag, $limit);
 
+// Count post and like number for every contributor
+$contributors = array();
+foreach($result->data as $media) {
+    $user_id = $media->user->id;
+    $username = $media->user->username;
+    $post_num = 1;
+    $post_like_num = $media->likes->count;
+    // Search username in contibutor list
+    $i = 0;
+    $isContributorFound = false;
+    while ($i<sizeof($contributors) && !$isContributorFound) {
+        if ($contributors[$i][0] === $user_id) {
+            // Contributor sudah ada di tabel
+            $isContributorFound = true;
+            $post_num += $contributors[$i][2];
+            $post_like_num += $contributors[$i][3];
+        } else {
+            $i++;
+        }
+    }
+
+    $contributor = array($user_id, $username, $post_num, $post_like_num);
+    if ($isContributorFound) {
+        $contributors[$i] = $contributor;
+    } else {
+        array_push($contributors, $contributor);
+    }
+}
+
+// Contributors
+echo "<br>Contributors (" . sizeof($contributors) . ")<br>";
+echo "Username Posts Likes<br>";
+foreach($contributors as $contributor) {
+    echo $contributor[0] . "--" . $contributor[1] . "--" . $contributor[2] . "--" . $contributor[3] . "<br>";
+}
+
+echo "<br><br>Top Contributors<br>";
+// Search contributor with most posts and likes
+$max_posts_idx = 0;
+$max_posts = 0;
+$max_likes_idx = 0;
+$max_likes = 0;
+for ($i=0; $i<sizeof($contributors); $i++) {
+    $posts = $contributors[$i][2];
+    if ($posts > $max_posts) {
+        $max_posts_idx = $i;
+        $max_posts = $posts;
+    } else if ($posts == $max_posts) {
+        $user_id = $contributors[$i][0];
+        $user_followers = $instagram->getUser($user_id)->data->counts->followed_by;
+        $max_posts_user_id = $contributors[$max_posts_idx][0];
+        $max_posts_user_followers = $instagram->getUser($max_posts_user_id)->data->counts->followed_by;
+        if ($user_followers > $max_posts_user_followers) {
+            // Pengguna memiliki follower lebih banyak
+            $max_posts_idx = $i;
+            $max_posts = $posts;
+        }
+    }
+    $likes = $contributors[$i][3];
+    if ($likes > $max_likes) {
+        $max_likes_idx = $i;
+        $max_likes = $likes;
+    } else if ($likes == $max_likes) {
+        $user_id = $contributors[$i][0];
+        $user_followers = $instagram->getUser($user_id)->data->counts->followed_by;
+        $max_likes_user_id = $contributors[$max_likes_idx][0];
+        $max_likes_user_followers = $instagram->getUser($max_likes_user_id)->data->counts->followed_by;
+        if ($user_followers > $max_likes_user_followers) {
+            // Pengguna memiliki follower lebih banyak
+            $max_likes_idx = $i;
+            $max_likes = $likes;
+        }
+    }
+}
+echo "Most posts: " . $max_posts . " posts by " . $contributors[$max_posts_idx][1] . "<br>";
+echo "Most likes: " . $max_likes . " likes by " . $contributors[$max_likes_idx][1] . "<br><br><br>";
+
+// Activities Volume
+$image_type_count = 0;
+$video_type_count = 0;
+foreach($result->data as $media) {
+    if ($media->type === "image") {
+        $image_type_count++;
+    } else {
+        $video_type_count++;
+    }
+}
+echo "Activities Volume<br>" . "Images: " . $image_type_count . "<br>";
+echo "Videos: " . $video_type_count ."<br>  ";
+
+// Graph
+foreach($result->data as $media) {
+    echo date('M j, Y', $media->created_time) . "<br>";
+}
 
 ?>
 <!DOCTYPE html>
