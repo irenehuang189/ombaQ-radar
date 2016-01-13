@@ -4,11 +4,12 @@ require 'vendor/cosenary/instagram/src/Instagram.php';
 
 use MetzWeb\Instagram\Instagram;
 
+ini_set('max_execution_time', 123456);
 $instagram = new Instagram('af797da93a514a9381d6862490944f45');
 
 $tag = 'photographyislifee';
 // Set number of photos to show
-$limit = 10;
+$limit = 100;
 $result = $instagram->getTagMedia($tag, $limit);
 
 // Count post and like number for every contributor
