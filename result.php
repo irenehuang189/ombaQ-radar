@@ -1,24 +1,18 @@
 <!doctype html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ombaQ radar</title>
 
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="favicon.ico" />
 
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:css styles/main.css -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <link rel="stylesheet" href="styles/result.css">
-    <!-- endbuild -->
+    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />
+    <link rel="stylesheet" href="styles/result.css" />
     
   </head>
   <body>
@@ -33,7 +27,7 @@
             <form class="col s8" id="search-form">
               <div class="input-field">
                 <i class="material-icons prefix">search</i>
-                <input id="hashtag-search" type="text" placeholder="Search" required>
+                <input id="hashtag-search" type="text" placeholder="Search" required />
               </div>
             </form>
           </li>
@@ -321,26 +315,10 @@
       </div>
     </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='https://www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
-
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-    
-    <!-- build:js scripts/main.js -->
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="scripts/main.js"></script>
-    <!-- endbuild -->
   </body>
 </html>

@@ -1,13 +1,9 @@
-// bower:scss
-// endbower
-
 body {
   color: white;
-  background-image: url("/images/bg.jpg");
+  background-image: url("../images/bg.jpg");
 }
 
 #index-banner {
-  /*border: solid yellow 2px;*/
   min-height: 100vh;
   padding-top: 7%;
 }
