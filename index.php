@@ -10,85 +10,29 @@ $instagram = new Instagram("af797da93a514a9381d6862490944f45");
 
 $tag = "photographyislifee";
 // Set number of photos to show
-$limit = 100;
+$limit = 10;
 $result = $instagram->getTagMedia($tag, $limit);
 
-// Count post and like number for every contributor
-$contributors = array();
-foreach($result->data as $media) {
-  $user_id = $media->user->id;
-  $username = $media->user->username;
-  $post_num = 1;
-  $post_like_num = $media->likes->count;
-  // Search username in contibutor list
-  $i = 0;
-  $is_contributor_found = false;
-  while ($i<sizeof($contributors) && !$is_contributor_found) {
-    if ($contributors[$i][0] === $user_id) {
-      // Contributor sudah ada di tabel
-      $is_contributor_found = true;
-      $post_num += $contributors[$i][2];
-      $post_like_num += $contributors[$i][3];
-    } else {
-      $i++;
-    }
-  }
-
-  $contributor = array($user_id, $username, $post_num, $post_like_num);
-  if ($is_contributor_found) {
-    $contributors[$i] = $contributor;
-  } else {
-    array_push($contributors, $contributor);
-  }
-}
-
-// Contributors
-echo "<br>Contributors (" . sizeof($contributors) . ")<br>";
+// Users
+$users = get_users_post_like($result->data);
+echo "Users (" . sizeof($users) . ")<br>";
 echo "Username Posts Likes<br>";
-foreach($contributors as $contributor) {
-  echo $contributor[0] . "--" . $contributor[1] . "--" . $contributor[2] . "--" . $contributor[3] . "<br>";
+foreach($users as $user) {
+  echo $user["user_id"] . "--" . $user["username"] . "--" . $user["post_num"] . "--" . $user["like_num"] . "<br>";
 }
 
-echo "<br><br>Top Contributors<br>";
-// Search contributor with most posts and likes
-$max_posts_idx = 0;
-$max_posts = 0;
-$max_likes_idx = 0;
-$max_likes = 0;
-for ($i=0; $i<sizeof($contributors); $i++) {
-  $posts = $contributors[$i][2];
-  if ($posts > $max_posts) {
-    $max_posts_idx = $i;
-    $max_posts = $posts;
-  } else if ($posts == $max_posts) {
-    $user_id = $contributors[$i][0];
-    $user_followers = $instagram->getUser($user_id)->data->counts->followed_by;
-    $max_posts_user_id = $contributors[$max_posts_idx][0];
-    $max_posts_user_followers = $instagram->getUser($max_posts_user_id)->data->counts->followed_by;
-    if ($user_followers > $max_posts_user_followers) {
-      // Pengguna memiliki follower lebih banyak
-      $max_posts_idx = $i;
-      $max_posts = $posts;
-    }
-  }
-  $likes = $contributors[$i][3];
-  if ($likes > $max_likes) {
-    $max_likes_idx = $i;
-    $max_likes = $likes;
-  } else if ($likes == $max_likes) {
-    $user_id = $contributors[$i][0];
-    $user_followers = $instagram->getUser($user_id)->data->counts->followed_by;
-    $max_likes_user_id = $contributors[$max_likes_idx][0];
-    $max_likes_user_followers = $instagram->getUser($max_likes_user_id)->data->counts->followed_by;
-    if ($user_followers > $max_likes_user_followers) {
-      // Pengguna memiliki follower lebih banyak
-      $max_likes_idx = $i;
-      $max_likes = $likes;
-    }
-  }
-}
-echo "Most posts: " . $max_posts . " posts by " . $contributors[$max_posts_idx][1] . "<br>";
-echo "Most likes: " . $max_likes . " likes by " . $contributors[$max_likes_idx][1] . "<br><br><br>";
+echo "<br><br>Top Users<br>";
+// Search user with most posts and likes
+$top_users = get_top_users($instagram, $users);
+$max_post_idx = $top_users["max_post_idx"];
+$max_like_idx = $top_users["max_like_idx"];
+
+$max_post = $users[$max_post_idx]["post_num"];
+$max_like = $users[$max_like_idx]["like_num"];
+$max_post_username = $users[$max_post_idx]["username"];
+$max_like_username = $users[$max_like_idx]["username"];
+echo "Most posts: " . $max_post . " posts by " . $max_post_username . "<br>";
+echo "Most likes: " . $max_like . " likes by " . $max_like_username . "<br><br><br>";
 
 // Activities Volume
 $image_type_count = 0;
@@ -121,6 +65,8 @@ foreach($result->data as $media) {
    
 </head>
 <body>
+<div id="wordcloud" style="width: 550px; height: 350px;margin: 0 auto"></div>
+
 <div class="container">
   <header class="clearfix">
     <img src="assets/instagram.png" alt="Instagram logo">
@@ -172,7 +118,6 @@ foreach($result->data as $media) {
       ?>
     </ul>
     
-    <div id="wordcloud" style="width: 550px; height: 350px;margin: 0 auto"></div>
     <!-- GitHub project -->
     <footer>
       <p>created by <a href="https://github.com/cosenary/Instagram-PHP-API">cosenary"s Instagram class</a>,
