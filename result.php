@@ -21,7 +21,7 @@
     <![endif]-->
     <nav>
       <div class="nav-wrapper z-depth-1 grey darken-4" id="nav-bar">
-        <a href="#" class="brand-logo">ombaQ Radar</a>
+        <a href="index.php" class="brand-logo">ombaQ Radar</a>
         <ul class="right hide-on-med-and-down row" id="nav-mobile">
           <li>
             <form class="col s8" id="search-form">
@@ -60,64 +60,9 @@
         <div class="section container">
           <h3 class="header light center">Latest Posts</h3>
           <!-- Latest Posts -->
-          <div class="row">
-            <div class="col s12 m6 l4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/sample.jpg" />
-                </div>
-                <div class="card-content">
-                  <div class="row">
-                    <div class="col s3">
-                      <img src="images/sample.jpg" alt="" class="circle responsive-img" />
-                    </div>
-                    <div class="col s9">
-                      Doggy<br />
-                      @dogofinstagram
-                    </div>
-                  </div>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m6 l4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/sample.jpg" />
-                </div>
-                <div class="card-content">
-                  <div class="row">
-                    <div class="col s3">
-                      <img src="images/sample.jpg" alt="" class="circle responsive-img" />
-                    </div>
-                    <div class="col s9">
-                      Doggy<br />
-                      @dogofinstagram
-                    </div>
-                  </div>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m6 l4">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/sample.jpg" />
-                </div>
-                <div class="card-content">
-                  <div class="row">
-                    <div class="col s3">
-                      <img src="images/sample.jpg" alt="" class="circle responsive-img" />
-                    </div>
-                    <div class="col s9">
-                      Doggy<br />
-                      @dogofinstagram
-                    </div>
-                  </div>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-              </div>
-            </div>
+          <div class="row" id="latest_posts_cards">
+            
+
           </div>
         </div>
       </div>
@@ -133,51 +78,11 @@
                   <img src="images/sample.jpg" />
                 </div>
                 <div class="card-content">
-                  <div class="row">
+                  <div class="row valign-wrapper">
                     <div class="col s3">
                       <img src="images/sample.jpg" alt="" class="circle responsive-img" />
                     </div>
-                    <div class="col s9">
-                      Doggy<br />
-                      @dogofinstagram
-                    </div>
-                  </div>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m12 l4">
-              <h1 class="light center">100</h1>
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/sample.jpg" />
-                </div>
-                <div class="card-content">
-                  <div class="row">
-                    <div class="col s3">
-                      <img src="images/sample.jpg" alt="" class="circle responsive-img" />
-                    </div>
-                    <div class="col s9">
-                      Doggy<br />
-                      @dogofinstagram
-                    </div>
-                  </div>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 m12 l4">
-              <h1 class="light center">100</h1>
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/sample.jpg" />
-                </div>
-                <div class="card-content">
-                  <div class="row">
-                    <div class="col s3">
-                      <img src="images/sample.jpg" alt="" class="circle responsive-img" />
-                    </div>
-                    <div class="col s9">
+                    <div class="col s9 valign">
                       Doggy<br />
                       @dogofinstagram
                     </div>
@@ -193,7 +98,7 @@
         <div class="section container">
           <h3 class="header light center">Contributors</h3>
           <!-- Contibutors Table -->
-<div class="row">
+          
           <table class="bordered highlight centered col s12 m6 l5">
             <thead>
               <tr>
@@ -249,7 +154,6 @@
             </tbody>
           </table>
         </div>
-        </div>
       </div>
       <div class="col s12" id="top_contributors">
         <div class="section container">
@@ -303,12 +207,12 @@
           <h3 class="header light center">Activities Volume</h3>
           <div class="card">
             <div class="card-content">
-              <div id="post_volume_chart"></div>
+              <div id="post-volume_chart"></div>
             </div>
           </div>
           <div class="card">
             <div class="card-content">
-              <div id="post_type_chart"></div>
+              <div id="post-type_chart"></div>
             </div>
           </div>
         </div>
@@ -316,9 +220,10 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <script type="text/javascript" src="scripts/chart.js"></script>
   </body>
 </html>

@@ -27,10 +27,10 @@
         </div>
 
         <div class="row section">
-          <form class="col s5 offset-s3" id="search-form">
+          <form class="col s5 offset-s3" id="search-form" method="get" action="result.php">
             <div class="input-field">
               <i class="material-icons prefix">search</i>
-              <input class="center" id="hashtag-search" type="text" placeholder="Search" required />
+              <input class="center" id="hashtag-search" name="hashtag" type="text" placeholder="Search" required />
             </div>
           </form>
         </div>
@@ -50,7 +50,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   </body>
 </html>

@@ -155,7 +155,7 @@ foreach($result->data as $media) {
     // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
     $("#wordcloud").jQCloud(word_cloud);
     });
-     </script>
+    </script>
 
 
 </body>
