@@ -9,3 +9,9 @@ body {
 .no-bottom-margin {
   margin-bottom: 0;
 }
+
+#word_cloud {
+  width: 700px;
+  height: 300px;
+  margin: 0 auto;
+}

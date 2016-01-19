@@ -10,8 +10,9 @@
     <link rel="icon" type="image/png" href="favicon.ico" />
 
     <!-- CSS -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css" />
     <link rel="stylesheet" href="styles/result.css" />
     
   </head>
@@ -59,10 +60,12 @@
       <div class="col s12" id="latest_posts">
         <div class="section container">
           <h3 class="header light center">Latest Posts</h3>
+          <div id="word_cloud">
+
+          </div>
           <!-- Latest Posts -->
           <div class="row" id="latest_posts_cards">
             
-
           </div>
         </div>
       </div>
@@ -70,27 +73,8 @@
         <div class="section container">
           <h3 class="header light center">Most Likes</h3>
           <!-- Most Likes Posts -->
-          <div class="row">
-            <div class="col s12 m12 l4">
-              <h1 class="light center">100</h1>
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/sample.jpg" />
-                </div>
-                <div class="card-content">
-                  <div class="row valign-wrapper">
-                    <div class="col s3">
-                      <img src="images/sample.jpg" alt="" class="circle responsive-img" />
-                    </div>
-                    <div class="col s9 valign">
-                      Doggy<br />
-                      @dogofinstagram
-                    </div>
-                  </div>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-              </div>
-            </div>
+          <div class="row" id="most_likes_cards">
+            
           </div>
         </div>
       </div>
@@ -108,22 +92,8 @@
               </tr>
             </thead>
 
-            <tbody>
-              <tr>
-                <td>@dogofinstagram</td>
-                <td>10</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>@doglife</td>
-                <td>1</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <td>@helloworld</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
+            <tbody id="left_contributors_table">
+
             </tbody>
           </table>
           <table class="bordered highlight centered col s12 m6 l5 offset-l2">
@@ -135,22 +105,8 @@
               </tr>
             </thead>
 
-            <tbody>
-              <tr>
-                <td>@dogofinstagram</td>
-                <td>10</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>@doglife</td>
-                <td>1</td>
-                <td>30</td>
-              </tr>
-              <tr>
-                <td>@helloworld</td>
-                <td>3</td>
-                <td>4</td>
-              </tr>
+            <tbody id="right_contributors_table">
+              
             </tbody>
           </table>
         </div>
@@ -160,42 +116,42 @@
           <h3 class="header light center">Top Contributors</h3>
           <div class="row">
             <!-- Posts -->
-            <div class="col s12 m6">
-              <div class="card-panel grey lighten-3">
+            <div class="col s12 m6" id="top_post">
+              <div class="card-panel grey lighten-3" id>
                 <!-- User -->
                 <div class="row valign-wrapper">
                   <div class="col s3">
-                    <img src="images/sample.jpg" class="circle responsive-img" />
+                    <img src="images/sample.jpg" class="circle responsive-img" id="user_image" />
                   </div>
                   <div class="col s9 valign">
-                    Doggy<br />
-                    @dogofinstagram
+                    <div id="user_fullname"></div>
+                    <div id="username"></div>
                   </div>
                 </div>
                 <!-- Number -->
                 <div class="row center">
                   <i class="large material-icons">perm_media</i>
-                  <h1 class="light">1000 Posts</h1>
+                  <h1 class="light"><span id="post_num"></span> Posts</h1>
                 </div>
               </div>
             </div>
             <!-- Likes -->
-            <div class="col s12 m6">
+            <div class="col s12 m6" id="top_like">
               <div class="card-panel grey lighten-3">
                 <!-- User -->
                 <div class="row valign-wrapper">
                   <div class="col s3">
-                    <img src="images/sample.jpg" class="circle responsive-img" />
+                    <img src="images/sample.jpg" class="circle responsive-img" id="user_image" />
                   </div>
                   <div class="col s9 valign">
-                    Doggy<br />
-                    @dogofinstagram
+                    <div id="user_fullname"></div>
+                    <div id="username"></div>
                   </div>
                 </div>
                 <!-- Number -->
                 <div class="row center">
                   <i class="large material-icons">thumb_up</i>
-                  <h1 class="light">1000 Likes</h1>
+                  <h1 class="light"><span id="like_num"></span> Likes</h1>
                 </div>
               </div>
             </div>
@@ -222,6 +178,7 @@
     <!-- JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="scripts/main.js"></script>
     <script type="text/javascript" src="scripts/chart.js"></script>
