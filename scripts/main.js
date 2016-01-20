@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  $("#features-tab").hide();
+
   // Feature tab
   $('ul.tabs').tabs();
   $('.tooltipped').tooltip({delay: 50});
@@ -26,6 +28,10 @@ $(document).ready(function(){
     data: {hashtag: hashtag},
     dataType: 'json',
     success: function(json) {
+      $("#preloader").hide();
+      $("#features-tab").show("slow");
+      $("footer").css("position", "static");
+
       var word_cloud = json.word_cloud;
       $('#word_cloud').jQCloud(word_cloud, {
         autoResize: true
@@ -165,17 +171,17 @@ function showTopContributors(contributors, top_contributors_idx) {
   var user_fullname = top_post_contributor.user_fullname;
   var username = "@" + top_post_contributor.username;
   var post_num = top_post_contributor.post_num;
-  $("#top_contributors #top_post #user_image").attr("src", user_image);
-  $("#top_contributors #top_post #user_fullname").append(user_fullname);
-  $("#top_contributors #top_post #username").append(username);
-  $("#top_contributors #top_post #post_num").append(post_num);
+  $("#contributors #top_post #user_image").attr("src", user_image);
+  $("#contributors #top_post #user_fullname").append(user_fullname);
+  $("#contributors #top_post #username").append(username);
+  $("#contributors #top_post #post_num").append(post_num);
 
   var user_image = top_like_contributor.user_image;
   var user_fullname = top_like_contributor.user_fullname;
   var username = "@" + top_like_contributor.username;
   var like_num = top_like_contributor.like_num;
-  $("#top_contributors #top_like #user_image").attr("src", user_image);
-  $("#top_contributors #top_like #user_fullname").append(user_fullname);
-  $("#top_contributors #top_like #username").append(username);
-  $("#top_contributors #top_like #like_num").append(like_num);
+  $("#contributors #top_like #user_image").attr("src", user_image);
+  $("#contributors #top_like #user_fullname").append(user_fullname);
+  $("#contributors #top_like #username").append(username);
+  $("#contributors #top_like #like_num").append(like_num);
 }

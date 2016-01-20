@@ -2,6 +2,22 @@ body {
   background: url("../images/bg-result.jpg") repeat-y;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+#preloader {
+  width: 100%;
+  min-height: 80vh;
+}
+
+.header {
+  margin: 50px 0;
+}
+
 #nav-bar {
   padding-left: 80px;
 }
@@ -13,5 +29,9 @@ body {
 #word_cloud {
   width: 700px;
   height: 300px;
-  margin: 0 auto;
+  margin: 0 auto 50px;
+}
+
+#contributors table {
+  margin-top: 50px;
 }

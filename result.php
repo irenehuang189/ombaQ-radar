@@ -25,10 +25,10 @@
         <a href="index.php" class="brand-logo">ombaQ Radar</a>
         <ul class="right hide-on-med-and-down row" id="nav-mobile">
           <li>
-            <form class="col s8" id="search-form">
+            <form class="col s8" id="search-form" method="get" action="result.php">
               <div class="input-field">
                 <i class="material-icons prefix">search</i>
-                <input id="hashtag-search" type="text" placeholder="Search" required />
+                <input id="hashtag-search" name="hashtag" type="text" placeholder="Search" required />
               </div>
             </form>
           </li>
@@ -36,7 +36,56 @@
       </div>
     </nav>
 
+    <!-- Preloader -->
+    <div class="row valign-wrapper" id="preloader">
+      <div class="valign center col s12">
+        <h4 class="thin white-text">Hang on tight!</h4>
+        <div class="preloader-wrapper active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Features Tab -->
+    <main>
     <div class="row" id="features-tab">
       <div class="col s12">
         <ul class="tabs z-depth-1 grey lighten-4">
@@ -48,9 +97,6 @@
           </li>
           <li class="tab col s3">
             <a class="tooltipped" href="#contributors" data-position="bottom" data-delay="50" data-tooltip="A complete list of all participants in this report, including how many posts they posted and how many posts they liked.">Contributors</a>
-          </li>
-          <li class="tab col s3">
-            <a class="tooltipped" href="#top_contributors" data-position="bottom" data-delay="50" data-tooltip="The contributor who have many posts and likes.">Top Contributors</a>
           </li>
           <li class="tab col s3">
             <a class="tooltipped" href="#activities_volume" data-position="bottom" data-delay="50" data-tooltip="Activities provides details about the posts in this report, including the time period covered by the report, a graphical timeline showing posts volume during the report period, and posts type breakdown.">Activities Volume</a>
@@ -81,39 +127,7 @@
       <div class="col s12" id="contributors">
         <div class="section container">
           <h3 class="header light center">Contributors</h3>
-          <!-- Contibutors Table -->
-          
-          <table class="bordered highlight centered col s12 m6 l5">
-            <thead>
-              <tr>
-                  <th data-field="">Username</th>
-                  <th data-field="name">Posts</th>
-                  <th data-field="price">Likes</th>
-              </tr>
-            </thead>
 
-            <tbody id="left_contributors_table">
-
-            </tbody>
-          </table>
-          <table class="bordered highlight centered col s12 m6 l5 offset-l2">
-            <thead>
-              <tr>
-                  <th data-field="">Username</th>
-                  <th data-field="name">Posts</th>
-                  <th data-field="price">Likes</th>
-              </tr>
-            </thead>
-
-            <tbody id="right_contributors_table">
-              
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col s12" id="top_contributors">
-        <div class="section container">
-          <h3 class="header light center">Top Contributors</h3>
           <div class="row">
             <!-- Posts -->
             <div class="col s12 m6" id="top_post">
@@ -156,6 +170,34 @@
               </div>
             </div>
           </div>
+
+          <!-- Contibutors Table -->
+          <table class="bordered highlight centered col s12 m6 l5">
+            <thead>
+              <tr>
+                  <th data-field="">Username</th>
+                  <th data-field="name">Posts</th>
+                  <th data-field="price">Likes</th>
+              </tr>
+            </thead>
+
+            <tbody id="left_contributors_table">
+
+            </tbody>
+          </table>
+          <table class="bordered highlight centered col s12 m6 l5 offset-l2">
+            <thead>
+              <tr>
+                  <th data-field="">Username</th>
+                  <th data-field="name">Posts</th>
+                  <th data-field="price">Likes</th>
+              </tr>
+            </thead>
+
+            <tbody id="right_contributors_table">
+              
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="col s12" id="activities_volume">
@@ -174,6 +216,12 @@
         </div>
       </div>
     </div>
+  </main>
+
+    <!-- Footer -->
+    <footer class="page-footer z-depth-1 grey lighten-4 black-text center-align">
+      © Copyright 2015 ombaQ, All Rights Reserved
+    </footer>
 
     <!-- JavaScript -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
