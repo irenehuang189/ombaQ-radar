@@ -125,31 +125,17 @@ function get_max_follower_user_id($instagram, $user1_id, $user2_id) {
   return $max_user_id;
 }
 
-function split_num($timediff, &$split, &$i, &$time) {
-	$time = "sec";
-	$i = 5;
-	$split = $timediff/$i;
-	while($split > 15) {
-		if($i < 60) 
-			$i += 5;
-		else if($i == 60) {
-			$i = 300;
-			$time = "min";
-		}
-		else if($i > 60) {
-			$i += 300;
-			$time = "min";
-		}
-		else if($i >= 3600) {
-			$i += 3600;
-			$time = "hr";
-		}
-		else if($i >= 86400) {
-			$i += 3600;
-			$time = "dt";
-		}
-		$split = $timediff/$i + 1;
-	}
+function get_image_video_count($posts) {
+  $image_type_count = 0;
+  $video_type_count = 0;
+  foreach($posts as $media) {
+    if ($media->type === "image") {
+      $image_type_count++;
+    } else {
+      $video_type_count++;
+    }
+  }
+  return array("image" => $image_type_count, "video" => $video_type_count);
 }
 
 function get_time_interval($posts) {
@@ -257,6 +243,32 @@ function get_time_interval($posts) {
 		}
 	}
 	return $timeinterval;
+}
+function split_num($timediff, &$split, &$i, &$time) {
+  $time = "sec";
+  $i = 5;
+  $split = $timediff/$i;
+  while($split > 15) {
+    if($i < 60) 
+      $i += 5;
+    else if($i == 60) {
+      $i = 300;
+      $time = "min";
+    }
+    else if($i > 60) {
+      $i += 300;
+      $time = "min";
+    }
+    else if($i >= 3600) {
+      $i += 3600;
+      $time = "hr";
+    }
+    else if($i >= 86400) {
+      $i += 3600;
+      $time = "dt";
+    }
+    $split = $timediff/$i + 1;
+  }
 }
 
 ?>

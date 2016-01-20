@@ -29,8 +29,8 @@ $(document).ready(function(){
     dataType: 'json',
     success: function(json) {
       $("#preloader").hide();
-      $("#features-tab").show("slow");
-      $("footer").css("position", "static");
+      $('#features-tab').show('slow');
+      $('footer').css('position', 'static');
 
       var word_cloud = json.word_cloud;
       $('#word_cloud').jQCloud(word_cloud, {
@@ -73,6 +73,17 @@ $(document).ready(function(){
 
       var top_contributors_idx = json.top_users;
       showTopContributors(contributors, top_contributors_idx);
+
+      var time_interval = json.time_interval;
+      var image_count = json.type_count.image;
+      var video_count = json.type_count.video;
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(function(){
+        drawPostVolumeChart(time_interval);
+      });
+      google.charts.setOnLoadCallback(function(){
+        drawPostTypeChart(image_count, video_count);
+      });
     },
     error: function(xhr, desc, err) {
       console.log(xhr);
@@ -184,4 +195,44 @@ function showTopContributors(contributors, top_contributors_idx) {
   $("#contributors #top_like #user_fullname").append(user_fullname);
   $("#contributors #top_like #username").append(username);
   $("#contributors #top_like #like_num").append(like_num);
+}
+
+function drawPostVolumeChart(time_interval) {
+  var data = new google.visualization.DataTable();
+  
+  data.addColumn('datetime', 'Time');
+  data.addColumn('number', 'Image');
+  data.addColumn('number', 'Video');
+
+  $.each(time_interval, function(i, point) {
+    var date = new Date(point[0].date);
+    data.addRow([date, point[1], point[2]]);
+  })
+
+  var options = ({
+    title: 'Total Most Recent Posts',
+    width: 900,
+    height: 450
+  });
+
+  var chart = new google.visualization.AreaChart(document.getElementById('post-volume_chart'));
+  chart.draw(data, options);
+}
+
+function drawPostTypeChart(image_count, video_count) {
+  var data = google.visualization.arrayToDataTable([
+    ['Type', 'Number'],
+    ['Image', image_count],
+    ['Video', video_count]
+  ]);
+
+  var options = {
+    title: 'Post Type',
+    pieHole: 0.4,
+    width: 900,
+    height: 450
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('post-type_chart'));
+  chart.draw(data, options);
 }
