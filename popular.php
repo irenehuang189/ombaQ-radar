@@ -8,7 +8,7 @@ use MetzWeb\Instagram\Instagram;
 ini_set("max_execution_time", 123456);
 $instagram = new Instagram("af797da93a514a9381d6862490944f45");
 
-$tag = "photographyislifee";
+$tag = "video";
 // Set number of photos to show
 $limit = 10;
 $result = $instagram->getTagMedia($tag, $limit);
@@ -47,12 +47,9 @@ foreach($result->data as $media) {
 echo "Activities Volume<br>" . "Images: " . $image_type_count . "<br>";
 echo "Videos: " . $video_type_count ."<br>  ";
 
-// Graph
-foreach($result->data as $media) {
-  echo date("M j, Y", $media->created_time) . "<br>";
-}
-
+$timeinterval = get_time_interval($result->data);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,6 +115,11 @@ foreach($result->data as $media) {
       ?>
     </ul>
     
+	<div class="card">
+            <div class="card-content">
+              <div id="post_volume_chart"></div>
+            </div>
+          </div>
     <!-- GitHub project -->
     <footer>
       <p>created by <a href="https://github.com/cosenary/Instagram-PHP-API">cosenary"s Instagram class</a>,
@@ -146,6 +148,7 @@ foreach($result->data as $media) {
     );
   });
 </script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script type="text/javascript">
     /*!
      * Create an array of word objects, each representing a word in the cloud
@@ -156,6 +159,32 @@ foreach($result->data as $media) {
     $("#wordcloud").jQCloud(word_cloud);
     });
     </script>
+	<script>
+// Graphical timeline for showing posts volume during the report period
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawPostVolumeChart);
+google.charts.setOnLoadCallback(drawPostTypeChart);
+function drawPostVolumeChart() {
+	var data = new google.visualization.DataTable();
+	
+    data.addColumn('datetime', 'Time');
+    data.addColumn('number', 'Image');
+	data.addColumn('number', 'Video');
+	<?php foreach($timeinterval as $x) : ?> 
+		data.addRow([new Date(<?php echo $x[0]->format('Y') ?>, <?php echo $x[0]->format('m') ?>, <?php echo $x[0]->format('d') ?>, <?php echo $x[0]->format('G') ?>, <?php echo $x[0]->format('i') ?>, <?php echo $x[0]->format('s') ?>), <?php echo $x[1] ?>, <?php echo $x[2] ?>]);
+	<?php endforeach; ?>
+
+	var options = ({
+		title: 'Total Most Recent Posts',
+		height: 450,
+		width: 900,
+	});
+
+
+	var chart = new google.visualization.AreaChart(document.getElementById('post_volume_chart'));
+	chart.draw(data, options);
+}
+     </script>
 
 
 </body>

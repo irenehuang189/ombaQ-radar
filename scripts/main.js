@@ -3,6 +3,7 @@ $(document).ready(function(){
   $('ul.tabs').tabs();
   $('.tooltipped').tooltip({delay: 50});
 
+
   var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = decodeURIComponent(window.location.search.substring(1)),
       sURLVariables = sPageURL.split('&'),
