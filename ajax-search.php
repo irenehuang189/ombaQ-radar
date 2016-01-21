@@ -9,9 +9,19 @@ use MetzWeb\Instagram\Instagram;
 ini_set("max_execution_time", 123456);
 
 $instagram = new Instagram("af797da93a514a9381d6862490944f45");
+
 $hashtag = $_REQUEST["hashtag"];
-$limit = 10;
+$limit = 500;
 $posts = $instagram->getTagMedia($hashtag, $limit)->data;
+
+$post_left = $limit - count($posts);
+$min_tag_id = $posts[count($posts)-1]->id;
+while ($post_left > 0) {
+  $posts_temp = $instagram->getTagMediaCont($hashtag, $post_left, $min_tag_id)->data;
+  $posts = merge_array_ordered($posts, $posts_temp);
+  $post_left -= count($posts_temp);
+  $min_tag_id = $posts_temp[count($posts_temp)-1]->id;
+}
 
 $tag_count = get_tag_count($posts, $hashtag);
 $word_cloud = convert_tag_count_to_word_array($tag_count);

@@ -271,4 +271,10 @@ function split_num($timediff, &$split, &$i, &$time) {
   }
 }
 
+function merge_array_ordered($arr1, $arr2) {
+  for ($i=0; $i<sizeof($arr2); $i++) {
+    $arr1[sizeof($arr1)+$i] = $arr2[$i];
+  }
+  return $arr1;
+}
 ?>
